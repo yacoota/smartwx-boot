@@ -1,0 +1,115 @@
+//  https://gitee.com/qingfengtaizi/smartwx-boot.git
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.0.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+}
+
+group = 'com.hermit'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = targetJavaVersion
+targetCompatibility = targetJavaVersion
+
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+
+configurations {
+    all*.exclude group: 'commons-logging'
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+}
+
+ext {
+
+    j2cache_version = "2.3.21-release"
+    druid_version = "1.0.28"
+    commons_io_version = "2.4"
+    commons_codec_version = "1.9"
+    commons_fileupload_version = "1.3.1"
+    commons_beanutils_version = "1.9.3"
+    xstream_version = "1.4.9"
+    fastjson_version = "1.2.47"
+    guava_version = "20.0"
+    zxing_version = "2.2"
+    aspectj_version = "1.7.4"
+    nl_version = "1.2.4"
+    mysql_driver_version = "5.1.46"
+    springfox_swagger2_version = "2.7.0"
+    configuration_version = "1.7"
+    ijapy_version = "1.1.4"
+    alipay_version = "3.0.52.ALL"
+    javax_mail_version = "1.6.1"
+    jsoup_version = "1.11.2"
+
+    lombok_version = "1.18.12"
+}
+
+dependencies {
+
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.0.3.RELEASE')
+
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2"
+    implementation "mysql:mysql-connector-java:${mysql_driver_version}"
+    implementation "com.alibaba:druid:${druid_version}"
+    implementation "commons-codec:commons-codec"
+    implementation "commons-fileupload:commons-fileupload:${commons_fileupload_version}"
+    implementation("commons-beanutils:commons-beanutils:${commons_beanutils_version}") {
+        exclude group: "commons-logging", module: "commons-logging"
+    }
+    implementation "com.alibaba:fastjson:${fastjson_version}"
+    implementation "com.thoughtworks.xstream:xstream:${xstream_version}"
+    implementation "com.google.zxing:core:${zxing_version}"
+    implementation "com.google.zxing:javase:${zxing_version}"
+    implementation "org.apache.httpcomponents:httpcore"
+    implementation "org.apache.httpcomponents:httpclient"
+    implementation "org.apache.httpcomponents:httpmime"
+    implementation "javax.servlet:javax.servlet-api"
+    implementation "javax.persistence:persistence-api:1.0.2"
+    implementation "com.google.guava:guava:${guava_version}"
+    implementation "org.apache.commons:commons-lang3"
+    implementation("commons-configuration:commons-configuration:${configuration_version}") {
+        exclude group: "commons-beanutils", module: "commons-beanutils"
+        exclude group: "commons-collections", module: "commons-collections"
+    }
+    implementation "org.jdom:jdom:1.1.3"
+    implementation "dom4j:dom4j"
+    implementation "org.ehcache:ehcache"
+    implementation "org.jsoup:jsoup:${jsoup_version}"
+
+    compileOnly "org.projectlombok:lombok:${lombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${lombok_version}"
+    testCompileOnly "org.projectlombok:lombok:${lombok_version}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombok_version}"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+defaultTasks 'clean', 'build'
