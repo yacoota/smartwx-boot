@@ -1,4 +1,5 @@
 //  https://gitee.com/qingfengtaizi/smartwx-boot.git
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.0.3.RELEASE'
